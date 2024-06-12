@@ -1,19 +1,21 @@
 package com.example.mockolingo.controllers;
 
-import com.example.mockolingo.model.Course;
-import com.example.mockolingo.model.CourseResult;
-import com.example.mockolingo.model.Question;
+import com.example.mockolingo.model.*;
+import com.example.mockolingo.service.QuizService;
+import com.example.mockolingo.service.SubmitQuizRequest;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
 @RestController
+@RequestMapping("api/courses")
 public class CoursesController {
+
+    QuizService quizService;
+
 
     @GetMapping("/api/test")
     String getTest(){ // for testing api deployment
@@ -21,36 +23,43 @@ public class CoursesController {
     }
 
 
-    @GetMapping("/api/{userid}/courses")
-    List<Course> getCourseForUser(@PathVariable String userId){
-        return null; //TODO
+    @GetMapping("/list")
+    ResponseEntity<List<CourseShort>> getCourseForUser(){
+        return ResponseEntity.ok(quizService.getQuizesDoneByUser());
     }
 
-    @GetMapping("/api/{languageId}/courses")
-    List<Course> getAllCoursesForLanguage(@PathVariable String languageId){
-        return null; //TODO
+    @GetMapping("/details/{$id}")
+    ResponseEntity<CourseDetailsResponse> getCourseDetails(@PathVariable int id){
+        return ResponseEntity.ok(quizService.getQuizById(id));
     }
 
-    @GetMapping("/api/{courseid}/questions")
-    List<Question> getQuestions(@PathVariable String courseId){
-        return null;//TODO
+    @PostMapping("/submit")
+    ResponseEntity<CourseResultResponse> submitQuiz(@RequestBody SubmitQuizRequest submitQuizRequest){
+        return ResponseEntity.ok(quizService.submitQuiz(submitQuizRequest));
     }
 
-    @PostMapping(path = "/api/{courseid}/questions",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    CourseResult postAnswers(@PathVariable String courseId){
-        return null;//TODO
+    @GetMapping("/result/{$id}")
+    ResponseEntity<CourseResultResponse> getQuizResult(@PathVariable int id){
+        return ResponseEntity.ok(quizService.getQuizResult(id));
     }
 
-    @GetMapping("/api/{courseid}/{userid}/result")
-    CourseResult getResult(@PathVariable String courseId, @PathVariable String userId){
-        return null;//TODO
+    @GetMapping("/history")
+    ResponseEntity<List<CourseShort>> getHistory(){
+        return ResponseEntity.ok(quizService.getQuizesDoneByUser());
     }
 
-    @GetMapping("/api/{userid}/history")
-    List<CourseResult> getHistory(@PathVariable String userId){
-        return null;//TODO
+
+
+    //ADMIN
+    @GetMapping("/all")
+    ResponseEntity<List<CourseShort>> getAll(){
+        return ResponseEntity.ok(quizService.getAllQuizes());
+    }
+
+    @PostMapping("/quiz/save")
+    ResponseEntity<String> saveQuiz(@RequestBody CourseSubmitRequest courseSubmitRequest){
+        quizService.submitQuiz(courseSubmitRequest);
+        return ResponseEntity.ok("ok");
     }
 
 

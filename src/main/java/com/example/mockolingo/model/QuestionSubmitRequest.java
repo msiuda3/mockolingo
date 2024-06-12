@@ -5,16 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Course {
-
-    int id;
-    String courseName;
-    Language language;
-    List<Q> qs;
+public class QuestionSubmitRequest {
+    private String question;
+    private String a;
+    private String b;
+    private String c;
+    private String correctAnswer;
 }

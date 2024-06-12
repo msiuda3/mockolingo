@@ -11,10 +11,9 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Course {
-
-    int id;
-    String courseName;
-    Language language;
-    List<Q> qs;
+public class CourseResultResponse {
+    private int id;
+    private String coursename;
+    private List<QuestionResult> questions;
+    private int score;
 }

@@ -1,6 +1,7 @@
 package com.example.mockolingo.model;
 
 
+import com.example.mockolingo.controllers.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -33,11 +34,8 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
-    /*@Enumerated(EnumType.STRING)
-    private Role role;*/
-
-    /*@OneToMany(mappedBy = "user")
-    private List<Token> tokens;*/
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

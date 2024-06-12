@@ -11,10 +11,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Course {
-
-    int id;
-    String courseName;
-    Language language;
-    List<Q> qs;
+public class CourseSubmitRequest {
+    private int quizId;
+    private String coursename;
+    private List<QuestionSubmitRequest> questions;
 }
