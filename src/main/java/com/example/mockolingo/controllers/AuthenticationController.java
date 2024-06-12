@@ -1,11 +1,9 @@
 package com.example.mockolingo.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/auth")
@@ -19,6 +17,12 @@ public class AuthenticationController {
             @RequestBody RegisterRequest request
     ){
         return ResponseEntity.ok(authenticationService.register(request));
+    }
+
+
+    @GetMapping("/role")
+    public ResponseEntity<RoleResponse> getRole(){
+        return ResponseEntity.ok(authenticationService.getRole());
     }
 
     @PostMapping("/login")

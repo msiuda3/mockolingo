@@ -2,6 +2,8 @@ package com.example.mockolingo.controllers;
 
 import com.example.mockolingo.model.User;
 import com.example.mockolingo.model.UserRepository;
+import com.example.mockolingo.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +18,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final UserService userService;
 
     public AuthenticationResponse register(RegisterRequest request) {
         User user = User.builder()
@@ -39,5 +42,9 @@ public class AuthenticationService {
         User user = repository.findByUsername(request.getUsername()).get();
         String token = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(token).build();
+    }
+
+    public RoleResponse getRole() {
+        return  RoleResponse.builder().role(userService.getCurrentUser().getRole().name()).build();
     }
 }

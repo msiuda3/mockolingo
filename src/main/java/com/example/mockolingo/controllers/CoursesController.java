@@ -23,9 +23,9 @@ public class CoursesController {
     }
 
 
-    @GetMapping("/list")
-    ResponseEntity<List<CourseShort>> getCourseForUser(){
-        return ResponseEntity.ok(quizService.getQuizesDoneByUser());
+    @GetMapping("/available")
+    ResponseEntity<List<CourseShort>> getAvailableQuizes(){
+        return ResponseEntity.ok(quizService.getQuizesNotDoneByUser());
     }
 
     @GetMapping("/details/{$id}")

@@ -18,11 +18,10 @@ public class QuizService {
 
     private final QuizRepository quizRepository;
     private final QuizResultRepository quizResultRepository;
-    private final QuestionRepository questionRepository;
-    private final JwtService jwtService;
+    private final UserService userService;
 
     public List<CourseShort> getQuizesNotDoneByUser() {
-        User currentUser = getCurrentUser();
+        User currentUser = userService.getCurrentUser();
         List<Quiz> quizes = quizRepository.findQuizesWithoutQuizResultForUser(currentUser);
         return quizes.stream().map(quiz -> CourseShort.builder().id(quiz.getID()).coursename(quiz.getQuizName()).build()).toList();
     }
@@ -56,7 +55,7 @@ public class QuizService {
         Quiz quiz = quizRepository.findById(submitQuizRequest.getQuizId()).orElseThrow();
         QuizResult quizResult = QuizResult.builder()
                 .quiz(quiz)
-                .user(getCurrentUser())
+                .user(userService.getCurrentUser())
                 .questions(
 
                         quiz.getQuestions().stream().map(question ->
@@ -70,7 +69,7 @@ public class QuizService {
                                 }
 
 
-                        ).toList()).user(getCurrentUser())
+                        ).toList()).user(userService.getCurrentUser())
 
                 .score(
                         (int) quiz.getQuestions().stream().filter(question ->
@@ -114,7 +113,7 @@ public class QuizService {
     }
 
     public List<CourseShort> getQuizesDoneByUser() {
-        User currentUser = getCurrentUser();
+        User currentUser = userService.getCurrentUser();
         List<QuizResult> quizes = quizResultRepository.findAllQuizesForUser(currentUser);
         return quizes.stream().map(quiz -> CourseShort.builder().id(quiz.getQuiz().getID()).coursename(quiz.getQuiz().getQuizName()).build()).toList();
     }
@@ -163,12 +162,6 @@ public class QuizService {
                 )
                 .build();
         quizRepository.save(quiz);
-    }
-
-
-
-    private User getCurrentUser() {
-        return null;//TODO
     }
 
 }
