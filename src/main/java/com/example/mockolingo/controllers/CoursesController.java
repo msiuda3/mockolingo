@@ -3,6 +3,7 @@ package com.example.mockolingo.controllers;
 import com.example.mockolingo.model.*;
 import com.example.mockolingo.service.QuizService;
 import com.example.mockolingo.service.SubmitQuizRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("api/courses")
 public class CoursesController {
 
-    QuizService quizService;
+    private final QuizService quizService;
 
 
     @GetMapping("/api/test")
@@ -28,7 +30,7 @@ public class CoursesController {
         return ResponseEntity.ok(quizService.getQuizesNotDoneByUser());
     }
 
-    @GetMapping("/details/{$id}")
+    @GetMapping("/details/{id}")
     ResponseEntity<CourseDetailsResponse> getCourseDetails(@PathVariable int id){
         return ResponseEntity.ok(quizService.getQuizById(id));
     }
@@ -38,7 +40,7 @@ public class CoursesController {
         return ResponseEntity.ok(quizService.submitQuiz(submitQuizRequest));
     }
 
-    @GetMapping("/result/{$id}")
+    @GetMapping("/result/{id}")
     ResponseEntity<CourseResultResponse> getQuizResult(@PathVariable int id){
         return ResponseEntity.ok(quizService.getQuizResult(id));
     }
@@ -56,9 +58,19 @@ public class CoursesController {
         return ResponseEntity.ok(quizService.getAllQuizes());
     }
 
-    @PostMapping("/quiz/save")
+    @GetMapping("/edit/{id}")
+    ResponseEntity<CourseDetailsEditResponse> d(@PathVariable int id){
+        return ResponseEntity.ok(quizService.getQuiz(id)); //TODO
+    }
+
+    @PostMapping("/save")
     ResponseEntity<String> saveQuiz(@RequestBody CourseSubmitRequest courseSubmitRequest){
-        quizService.submitQuiz(courseSubmitRequest);
+        if(courseSubmitRequest.getId() != 0){
+            quizService.editQuiz(courseSubmitRequest);
+        }
+        else {
+            quizService.submitQuiz(courseSubmitRequest);
+        }
         return ResponseEntity.ok("ok");
     }
 

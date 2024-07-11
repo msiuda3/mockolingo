@@ -11,8 +11,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseSubmitRequest {
+public class CourseDetailsEditResponse {
     private int id;
     private String coursename;
-    private List<QuestionSubmitRequest> questions;
+    private List<QEdit> questions;
 }

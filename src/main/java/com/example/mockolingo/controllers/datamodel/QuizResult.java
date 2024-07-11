@@ -13,17 +13,20 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
 @Table(name = "_quiz_result")
 public class QuizResult {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
-   @OneToOne
+   @ManyToOne
+   @JoinColumn(name = "quiz_id")
     private Quiz quiz;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
-   @OneToMany
+    @OneToMany(mappedBy = "quizResult", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
    private List<QuestionAnswer> questions;
    private int score;
 }

@@ -16,6 +16,5 @@ public interface QuizResultRepository extends JpaRepository<QuizResult, Integer>
 
     @Query("SELECT t FROM QuizResult t WHERE t.user = :user")
     List<QuizResult> findAllQuizesForUser(@Param("user") User user);
-    @Query("SELECT t FROM QuizResult t WHERE t.user = :user")
-    Optional<QuizResult> findByQuizId(@Param("id") int id);
+    Optional<QuizResult> findById(int id);
 }

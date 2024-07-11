@@ -14,5 +14,5 @@ import java.util.List;
 public class CourseDetailsResponse {
     private int id;
     private String coursename;
-    private List<Q> qs;
+    private List<Q> questions;
 }

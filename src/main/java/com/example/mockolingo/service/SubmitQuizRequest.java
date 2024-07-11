@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class SubmitQuizRequest {
-    int quizId;
+    int id;
     List<SubmitQuestionRequest> questions;
 
 }

@@ -15,10 +15,10 @@ public interface QuizRepository extends JpaRepository<Quiz, Integer>{
 
     List<Quiz> findAll();
 
-    @Query("SELECT t FROM Test t WHERE t.id NOT IN (SELECT tr.quiz.id FROM QuizResult tr WHERE tr.user = :user)")
-    List<Quiz> findQuizesWithoutQuizResultForUser(@Param("user") User user);
+    @Query(value = "SELECT * FROM _quiz q WHERE q.ID NOT IN (SELECT qr.quiz_id FROM _quiz_result qr WHERE qr.user_id = :userId)", nativeQuery = true)
+    List<Quiz> findQuizesWithoutQuizResultForUser(@Param("userId") Integer userId);
 
-    Optional<Quiz> findById(String id);
+    Optional<Quiz> findByID(int id);
 
 
 }

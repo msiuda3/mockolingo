@@ -1,17 +1,10 @@
 package com.example.mockolingo.service;
 
 import com.example.mockolingo.controllers.JwtService;
-import com.example.mockolingo.controllers.datamodel.*;
 import com.example.mockolingo.model.*;
-import com.example.mockolingo.repository.QuestionRepository;
-import com.example.mockolingo.repository.QuizRepository;
-import com.example.mockolingo.repository.QuizResultRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
