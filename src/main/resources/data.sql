@@ -11,6 +11,6 @@ INSERT INTO _quiz (quiz_name) VALUES
 -- Wstawianie pytań i przypisywanie ich do quizu
 INSERT INTO _question (question, a, b, c, correct_answer, quiz_id) VALUES
 ('Jeść', 'to eat', 'to sleep', 'to jump', 'A', 1),
-('Pić', 'to sleep', 'to eat', 'to drink', 'C', 1);
-('Pies', 'cat', 'dog', 'horse', 'B', 2);
+('Pić', 'to sleep', 'to eat', 'to drink', 'C', 1),
+('Pies', 'cat', 'dog', 'horse', 'B', 2),
 ('Ptak', 'bird', 'cat', 'fish', 'A', 2);
