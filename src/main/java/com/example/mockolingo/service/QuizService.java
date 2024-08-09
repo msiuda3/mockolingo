@@ -70,7 +70,7 @@ public class QuizService {
 
                         quiz.getQuestions().stream().map(question ->
                                 {
-                                    SubmitQuestionRequest questionRequest = submitQuizRequest.questions.stream().filter(q -> q.getId() == question.getID()).findFirst().orElseThrow();
+                                    SubmitQuestionRequest questionRequest = submitQuizRequest.getQuestions().stream().filter(q -> q.getId() == question.getID()).findFirst().orElseThrow();
                                     return QuestionAnswer.builder()
                                             .question(question)
                                             .correct(Answer.valueOf(questionRequest.getAnswer().toUpperCase()) == question.getCorrectAnswer())
@@ -83,7 +83,7 @@ public class QuizService {
 
                 .score(
                         (int) quiz.getQuestions().stream().filter(question ->
-                                submitQuizRequest.questions.stream()
+                                submitQuizRequest.getQuestions().stream()
                                         .anyMatch(q -> Answer.valueOf(q.getAnswer().toUpperCase()) == question.getCorrectAnswer() && q.getId() == question.getID())
 
 
