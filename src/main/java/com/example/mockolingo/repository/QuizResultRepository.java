@@ -1,8 +1,7 @@
 package com.example.mockolingo.repository;
 
-import com.example.mockolingo.controllers.datamodel.Quiz;
-import com.example.mockolingo.controllers.datamodel.QuizResult;
-import com.example.mockolingo.model.User;
+import com.example.mockolingo.model.data.QuizResult;
+import com.example.mockolingo.model.data.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

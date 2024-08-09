@@ -1,7 +1,16 @@
 package com.example.mockolingo.service;
 
-import com.example.mockolingo.controllers.datamodel.*;
-import com.example.mockolingo.model.*;
+import com.example.mockolingo.model.data.*;
+import com.example.mockolingo.model.request.model.QuestionResult;
+import com.example.mockolingo.model.request.response.CourseDetailsEditResponse;
+import com.example.mockolingo.model.request.response.CourseDetailsResponse;
+import com.example.mockolingo.model.request.response.CourseResultResponse;
+import com.example.mockolingo.model.request.CourseSubmitRequest;
+import com.example.mockolingo.model.request.SubmitQuestionRequest;
+import com.example.mockolingo.model.request.SubmitQuizRequest;
+import com.example.mockolingo.model.request.model.QuestionEditModel;
+import com.example.mockolingo.model.request.model.QuestionModel;
+import com.example.mockolingo.model.request.model.QuizModel;
 import com.example.mockolingo.repository.QuizRepository;
 import com.example.mockolingo.repository.QuizResultRepository;
 import jakarta.transaction.Transactional;
@@ -21,10 +30,10 @@ public class QuizService {
     private final QuizResultRepository quizResultRepository;
     private final UserService userService;
 
-    public List<CourseShort> getQuizesNotDoneByUser() {
+    public List<QuizModel> getQuizesNotDoneByUser() {
         User currentUser = userService.getCurrentUser();
         List<Quiz> quizes = quizRepository.findQuizesWithoutQuizResultForUser(currentUser.getId());
-        return quizes.stream().map(quiz -> CourseShort.builder().id(quiz.getID()).coursename(quiz.getQuizName()).build()).toList();
+        return quizes.stream().map(quiz -> QuizModel.builder().id(quiz.getID()).coursename(quiz.getQuizName()).build()).toList();
     }
 
     public CourseDetailsResponse getQuizById(int id) {
@@ -39,7 +48,7 @@ public class QuizService {
                 .coursename(quiz.getQuizName())
                 .questions(
                         quiz.getQuestions().stream().map(question ->
-                                Q.builder()
+                                QuestionModel.builder()
                                         .id(question.getID())
                                         .question(question.getQuestion())
                                         .a(question.getA())
@@ -103,7 +112,7 @@ public class QuizService {
                 .coursename(quiz.getQuizName())
                 .questions(
                         quiz.getQuestions().stream().map(question ->
-                                QEdit.builder()
+                                QuestionEditModel.builder()
                                         .id(question.getID())
                                         .question(question.getQuestion())
                                         .a(question.getA())
@@ -141,15 +150,15 @@ public class QuizService {
 
     }
 
-    public List<CourseShort> getQuizesDoneByUser() {
+    public List<QuizModel> getQuizesDoneByUser() {
         User currentUser = userService.getCurrentUser();
         List<QuizResult> quizes = quizResultRepository.findAllQuizesForUser(currentUser);
-        return quizes.stream().map(quiz -> CourseShort.builder().id(quiz.getID()).coursename(quiz.getQuiz().getQuizName()).build()).toList();
+        return quizes.stream().map(quiz -> QuizModel.builder().id(quiz.getID()).coursename(quiz.getQuiz().getQuizName()).build()).toList();
     }
 
-    public List<CourseShort> getAllQuizes() {
+    public List<QuizModel> getAllQuizes() {
         List<Quiz> quizes = quizRepository.findAll();
-        return quizes.stream().map(quiz -> CourseShort.builder().id(quiz.getID()).coursename(quiz.getQuizName()).build()).toList();
+        return quizes.stream().map(quiz -> QuizModel.builder().id(quiz.getID()).coursename(quiz.getQuizName()).build()).toList();
     }
 
     @Transactional

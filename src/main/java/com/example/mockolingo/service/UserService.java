@@ -1,7 +1,7 @@
 package com.example.mockolingo.service;
 
-import com.example.mockolingo.controllers.JwtService;
-import com.example.mockolingo.model.*;
+import com.example.mockolingo.model.data.User;
+import com.example.mockolingo.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

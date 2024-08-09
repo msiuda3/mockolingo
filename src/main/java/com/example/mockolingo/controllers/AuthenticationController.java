@@ -1,7 +1,11 @@
 package com.example.mockolingo.controllers;
 
+import com.example.mockolingo.model.request.AuthenticationRequest;
+import com.example.mockolingo.model.request.RegisterRequest;
+import com.example.mockolingo.model.request.response.AuthenticationResponse;
+import com.example.mockolingo.model.request.response.RoleResponse;
+import com.example.mockolingo.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

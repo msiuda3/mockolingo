@@ -1,14 +1,16 @@
 package com.example.mockolingo.controllers;
 
-import com.example.mockolingo.model.*;
+import com.example.mockolingo.model.request.response.CourseDetailsEditResponse;
+import com.example.mockolingo.model.request.response.CourseDetailsResponse;
+import com.example.mockolingo.model.request.response.CourseResultResponse;
+import com.example.mockolingo.model.request.CourseSubmitRequest;
+import com.example.mockolingo.model.request.model.QuizModel;
 import com.example.mockolingo.service.QuizService;
-import com.example.mockolingo.service.SubmitQuizRequest;
+import com.example.mockolingo.model.request.SubmitQuizRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,7 +28,7 @@ public class CoursesController {
 
 
     @GetMapping("/available")
-    ResponseEntity<List<CourseShort>> getAvailableQuizes(){
+    ResponseEntity<List<QuizModel>> getAvailableQuizes(){
         return ResponseEntity.ok(quizService.getQuizesNotDoneByUser());
     }
 
@@ -46,7 +48,7 @@ public class CoursesController {
     }
 
     @GetMapping("/history")
-    ResponseEntity<List<CourseShort>> getHistory(){
+    ResponseEntity<List<QuizModel>> getHistory(){
         return ResponseEntity.ok(quizService.getQuizesDoneByUser());
     }
 
@@ -54,7 +56,7 @@ public class CoursesController {
 
     //ADMIN
     @GetMapping("/all")
-    ResponseEntity<List<CourseShort>> getAll(){
+    ResponseEntity<List<QuizModel>> getAll(){
         return ResponseEntity.ok(quizService.getAllQuizes());
     }
 
