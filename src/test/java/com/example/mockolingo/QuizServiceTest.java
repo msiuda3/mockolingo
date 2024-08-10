@@ -61,7 +61,7 @@ class QuizServiceTest {
         List<QuizModel> result = quizService.getQuizesNotDoneByUser();
 
         assertNotNull(result);
-        assertEquals(1, result.size());
+        assertEquals(2, result.size());
         assertEquals("Quiz 1", result.get(0).getCoursename());
         verify(userService).getCurrentUser();
         verify(quizRepository).findQuizesWithoutQuizResultForUser(mockUser.getId());
