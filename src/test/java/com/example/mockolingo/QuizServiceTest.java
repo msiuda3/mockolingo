@@ -49,7 +49,6 @@ class QuizServiceTest {
 
     @Test
     void testGetQuizesNotDoneByUser() {
-        // Przygotowanie
         User mockUser = User.builder().id(1).build();
         List<Quiz> mockQuizes = List.of(
                 Quiz.builder().ID(1).quizName("Quiz 1").build(),
@@ -59,10 +58,8 @@ class QuizServiceTest {
         when(userService.getCurrentUser()).thenReturn(mockUser);
         when(quizRepository.findQuizesWithoutQuizResultForUser(mockUser.getId())).thenReturn(mockQuizes);
 
-        // Wykonanie
         List<QuizModel> result = quizService.getQuizesNotDoneByUser();
 
-        // Assercje
         assertNotNull(result);
         assertEquals(2, result.size());
         assertEquals("Quiz 1", result.get(0).getCoursename());
@@ -72,7 +69,6 @@ class QuizServiceTest {
 
     @Test
     void testGetQuizById_WhenQuizExists() {
-        // Przygotowanie
         Quiz mockQuiz = Quiz.builder()
                 .ID(1)
                 .quizName("Test Quiz")
@@ -88,10 +84,8 @@ class QuizServiceTest {
 
         when(quizRepository.findById(1)).thenReturn(Optional.of(mockQuiz));
 
-        // Wykonanie
         CourseDetailsResponse response = quizService.getQuizById(1);
 
-        // Assercje
         assertNotNull(response);
         assertEquals(1, response.getId());
         assertEquals("Test Quiz", response.getCoursename());
@@ -104,13 +98,10 @@ class QuizServiceTest {
     @Test
     @Disabled("TODO: Decide what to do if cant find quiz with given id")
     void testGetQuizById_WhenQuizDoesNotExist() {
-        // Przygotowanie
         when(quizRepository.findById(1)).thenReturn(Optional.empty());
 
-        // Wykonanie
         CourseDetailsResponse response = quizService.getQuizById(1);
 
-        // Assercje
         assertNotNull(response);
         assertNull(response.getId());
         verify(quizRepository).findById(1);
@@ -120,7 +111,6 @@ class QuizServiceTest {
 
     @Test
     void testSubmitQuiz() {
-        // Przygotowanie
         SubmitQuizRequest submitQuizRequest = SubmitQuizRequest.builder()
                 .id(1)
                 .questions(List.of(SubmitQuestionRequest.builder()
@@ -148,10 +138,8 @@ class QuizServiceTest {
         when(userService.getCurrentUser()).thenReturn(mockUser);
         when(quizResultRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
-        // Wykonanie
         CourseResultResponse response = quizService.submitQuiz(submitQuizRequest);
 
-        // Assercje
         assertNotNull(response);
         assertEquals(1, response.getQuestions().size());
         assertEquals(1, response.getScore());
@@ -161,7 +149,6 @@ class QuizServiceTest {
 
     @Test
     void testGetQuizResult() {
-        // Przygotowanie
         Quiz mockQuiz = Quiz.builder()
                 .ID(1)
                 .quizName("Test Quiz")
@@ -189,10 +176,8 @@ class QuizServiceTest {
 
         when(quizResultRepository.findById(1)).thenReturn(Optional.of(mockQuizResult));
 
-        // Wykonanie
         CourseResultResponse response = quizService.getQuizResult(1);
 
-        // Assercje
         assertNotNull(response);
         assertEquals(1, response.getId());
         assertEquals("Test Quiz", response.getCoursename());
@@ -215,16 +200,13 @@ class QuizServiceTest {
                 ))
                 .build();
 
-        // Wykonanie
         quizService.submitQuiz(submitQuizRequest);
 
-        // Assercje
         verify(quizRepository).save(any(Quiz.class));
     }
 
     @Test
     void testEditQuiz() {
-        // Przygotowanie
         CourseSubmitRequest submitQuizRequest = CourseSubmitRequest.builder()
                 .id(1)
                 .coursename("Updated Quiz")
@@ -257,10 +239,8 @@ class QuizServiceTest {
 
         when(quizRepository.findById(1)).thenReturn(Optional.of(mockQuiz));
 
-        // Wykonanie
         quizService.editQuiz(submitQuizRequest);
 
-        // Assercje
         verify(quizRepository).save(any(Quiz.class));
         assertEquals("Updated Quiz", mockQuiz.getQuizName());
     }
