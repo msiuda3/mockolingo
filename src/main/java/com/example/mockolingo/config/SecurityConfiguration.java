@@ -32,9 +32,11 @@ public class SecurityConfiguration {
 
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/h2-console").permitAll()
+                .requestMatchers("/v3/api-docs").permitAll()
+                .requestMatchers("/swagger-ui/index.html").permitAll()
 
                 .anyRequest()
-                .authenticated()
+                .permitAll()
 
                 .and()
                 .sessionManagement()
