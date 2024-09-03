@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "_question")
 public class ClosedChoicesQuestion extends Question<ClosedChoicesQuestionAnswer> {
     private String a;
     private String b;

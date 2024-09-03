@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "_question")
+@Entity
 public class OpenQuestion extends Question {
     private String correctAnswer;
     @OneToMany(mappedBy = "question")

@@ -37,6 +37,9 @@ public class CoursesController {
         return ResponseEntity.ok(quizService.getQuizById(id));
     }
 
+    //TODO implement service methods
+/*
+
     @PostMapping("/submit")
     ResponseEntity<CourseResultResponse> submitQuiz(@RequestBody SubmitQuizRequest submitQuizRequest){
         return ResponseEntity.ok(quizService.submitQuiz(submitQuizRequest));
@@ -75,6 +78,7 @@ public class CoursesController {
         }
         return ResponseEntity.ok("ok");
     }
+*/
 
 
 }

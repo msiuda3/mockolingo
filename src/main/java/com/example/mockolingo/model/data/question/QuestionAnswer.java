@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Builder
-@Table(name = "_question_answer")
 public abstract class QuestionAnswer<T extends Question> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

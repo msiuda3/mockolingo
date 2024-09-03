@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "_question_answer")
 public class ClosedChoicesQuestionAnswer extends QuestionAnswer<ClosedChoicesQuestion> {
     @Enumerated(EnumType.STRING)
     private Answer answer;

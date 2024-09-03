@@ -53,9 +53,9 @@ public class QuizService {
                                 QuestionModel.builder()
                                         .id(closedChoicesQuestion.getID())
                                         .question(closedChoicesQuestion.getQuestion())
-                                        .a(closedChoicesQuestion.getA())
-                                        .b(closedChoicesQuestion.getB())
-                                        .c(closedChoicesQuestion.getC())
+                  //                      .a(closedChoicesQuestion.getA())
+                    //                    .b(closedChoicesQuestion.getB())
+                      //                  .c(closedChoicesQuestion.getC())
                                         .build()
 
                         ).toList()
@@ -63,7 +63,8 @@ public class QuizService {
                 ).build();
     }
 
-    public CourseResultResponse submitQuiz(SubmitQuizRequest submitQuizRequest) {
+    //TODO rewrite this
+ /*   public CourseResultResponse submitQuiz(SubmitQuizRequest submitQuizRequest) {
         Quiz quiz = quizRepository.findById(submitQuizRequest.getId()).orElseThrow();
         QuizResult quizResult = QuizResult.builder()
                 .quiz(quiz)
@@ -95,11 +96,12 @@ public class QuizService {
         quizResult.getQuestions().forEach(questionAnswer -> questionAnswer.setQuizResult(quizResult));
         return getQuizResult(quizResultRepository.save(quizResult));
     }
+*/
 
-
-    public CourseResultResponse getQuizResult(int id) {
+    //TODO rewrite this
+    /*public CourseResultResponse getQuizResult(int id) {
         return getQuizResult(quizResultRepository.findById(id).orElseThrow());
-    }
+    }*/
 
 
     public CourseDetailsEditResponse getQuiz(int id) {
@@ -117,10 +119,10 @@ public class QuizService {
                                 QuestionEditModel.builder()
                                         .id(closedChoicesQuestion.getID())
                                         .question(closedChoicesQuestion.getQuestion())
-                                        .a(closedChoicesQuestion.getA())
-                                        .b(closedChoicesQuestion.getB())
-                                        .c(closedChoicesQuestion.getC())
-                                        .correctAnswer(closedChoicesQuestion.getCorrectAnswer().toString())
+                                    //    .a(closedChoicesQuestion.getA())
+                                      //  .b(closedChoicesQuestion.getB())
+                                        //.c(closedChoicesQuestion.getC())
+                                       // .correctAnswer(closedChoicesQuestion.getCorrectAnswer().toString())
                                         .build()
 
                         ).toList()
@@ -129,7 +131,8 @@ public class QuizService {
 
     }
 
-    public CourseResultResponse getQuizResult(QuizResult quizResult) {
+    //TODO rewrite this
+   /* public CourseResultResponse getQuizResult(QuizResult quizResult) {
 
         return CourseResultResponse.builder()
                 .id(quizResult.getID())
@@ -150,7 +153,7 @@ public class QuizService {
                 .score(quizResult.getScore())
                 .build();
 
-    }
+    }*/
 
     public List<QuizModel> getQuizesDoneByUser() {
         User currentUser = userService.getCurrentUser();
@@ -163,7 +166,8 @@ public class QuizService {
         return quizes.stream().map(quiz -> QuizModel.builder().id(quiz.getID()).coursename(quiz.getQuizName()).build()).toList();
     }
 
-    @Transactional
+    //TODO rewrite this
+   /* @Transactional
     public void submitQuiz(CourseSubmitRequest submitQuizRequest) {
         Quiz quiz = Quiz.builder()
                 .quizName(submitQuizRequest.getCoursename())
@@ -183,7 +187,7 @@ public class QuizService {
                 .build();
         quiz.getClosedChoicesQuestions().forEach(closedChoicesQuestion -> closedChoicesQuestion.setQuiz(quiz));
         quizRepository.save(quiz);
-    }
+    }*/
 
     @Transactional
     public void editQuiz(CourseSubmitRequest submitQuizRequest) {
@@ -196,12 +200,12 @@ public class QuizService {
                         submitQuizRequest.getQuestions().stream().map(
                                 submitQuestionRequest ->
                                         ClosedChoicesQuestion.builder()
-                                                .question(submitQuestionRequest.getQuestion())
+                                             //   .question(submitQuestionRequest.getQuestion())
                                                 .a(submitQuestionRequest.getA())
                                                 .b(submitQuestionRequest.getB())
                                                 .c(submitQuestionRequest.getC())
                                                 .correctAnswer(Answer.valueOf(submitQuestionRequest.getCorrectAnswer().toUpperCase()))
-                                                .quiz(quiz)
+                                            //    .quiz(quiz)
                                                 .build()
                         ).collect(Collectors.toCollection(ArrayList::new))
 

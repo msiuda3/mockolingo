@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Entity
 public class OpenQuestionAnswer extends QuestionAnswer<OpenQuestion> {
     private String answer;
     private boolean correct;

@@ -2,9 +2,19 @@ package com.example.mockolingo.model.data.question;
 
 import com.example.mockolingo.model.data.Quiz;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Question<T extends QuestionAnswer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
