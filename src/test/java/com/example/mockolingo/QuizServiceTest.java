@@ -1,8 +1,9 @@
 package com.example.mockolingo;
 
 import com.example.mockolingo.model.data.*;
+import com.example.mockolingo.model.data.question.ClosedChoicesQuestion;
+import com.example.mockolingo.model.data.question.QuestionAnswer;
 import com.example.mockolingo.model.request.QuestionSubmitRequest;
-import com.example.mockolingo.model.request.model.QuestionModel;
 import com.example.mockolingo.model.request.model.QuizModel;
 import com.example.mockolingo.model.request.response.CourseDetailsResponse;
 import com.example.mockolingo.model.request.response.CourseResultResponse;
@@ -72,7 +73,7 @@ class QuizServiceTest {
         Quiz mockQuiz = Quiz.builder()
                 .ID(1)
                 .quizName("Test Quiz")
-                .questions(List.of(Question.builder()
+                .closedChoicesQuestions(List.of(ClosedChoicesQuestion.builder()
                         .ID(1)
                         .question("Question 1")
                         .a("A")
@@ -122,7 +123,7 @@ class QuizServiceTest {
         Quiz mockQuiz = Quiz.builder()
                 .ID(1)
                 .quizName("Test Quiz")
-                .questions(List.of(Question.builder()
+                .closedChoicesQuestions(List.of(ClosedChoicesQuestion.builder()
                         .ID(1)
                         .question("Question 1")
                         .a("A")
@@ -154,7 +155,7 @@ class QuizServiceTest {
                 .quizName("Test Quiz")
                 .build();
 
-        Question mockQuestion = Question.builder()
+        ClosedChoicesQuestion mockClosedChoicesQuestion = ClosedChoicesQuestion.builder()
                 .ID(1)
                 .question("Question 1")
                 .a("A")
@@ -167,7 +168,7 @@ class QuizServiceTest {
                 .ID(1)
                 .quiz(mockQuiz)
                 .questions(List.of(QuestionAnswer.builder()
-                        .question(mockQuestion)
+                        .closedChoicesQuestion(mockClosedChoicesQuestion)
                         .correct(true)
                         .answer(Answer.A)
                         .build()))
@@ -224,10 +225,10 @@ class QuizServiceTest {
         Quiz mockQuiz = Quiz.builder()
                 .ID(1)
                 .quizName("Old Quiz")
-                .questions(
+                .closedChoicesQuestions(
                         new ArrayList<>(
                         List.of(
-                        Question.builder()
+                        ClosedChoicesQuestion.builder()
                                 .question("Base Question 1")
                                 .a("A1")
                                 .b("B1")

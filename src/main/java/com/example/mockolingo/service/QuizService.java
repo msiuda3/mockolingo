@@ -1,6 +1,8 @@
 package com.example.mockolingo.service;
 
 import com.example.mockolingo.model.data.*;
+import com.example.mockolingo.model.data.question.ClosedChoicesQuestion;
+import com.example.mockolingo.model.data.question.QuestionAnswer;
 import com.example.mockolingo.model.request.model.QuestionResult;
 import com.example.mockolingo.model.request.response.CourseDetailsEditResponse;
 import com.example.mockolingo.model.request.response.CourseDetailsResponse;
@@ -47,13 +49,13 @@ public class QuizService {
                 .id(quiz.getID())
                 .coursename(quiz.getQuizName())
                 .questions(
-                        quiz.getQuestions().stream().map(question ->
+                        quiz.getClosedChoicesQuestions().stream().map(closedChoicesQuestion ->
                                 QuestionModel.builder()
-                                        .id(question.getID())
-                                        .question(question.getQuestion())
-                                        .a(question.getA())
-                                        .b(question.getB())
-                                        .c(question.getC())
+                                        .id(closedChoicesQuestion.getID())
+                                        .question(closedChoicesQuestion.getQuestion())
+                                        .a(closedChoicesQuestion.getA())
+                                        .b(closedChoicesQuestion.getB())
+                                        .c(closedChoicesQuestion.getC())
                                         .build()
 
                         ).toList()
@@ -68,12 +70,12 @@ public class QuizService {
                 .user(userService.getCurrentUser())
                 .questions(
 
-                        quiz.getQuestions().stream().map(question ->
+                        quiz.getClosedChoicesQuestions().stream().map(closedChoicesQuestion ->
                                 {
-                                    SubmitQuestionRequest questionRequest = submitQuizRequest.getQuestions().stream().filter(q -> q.getId() == question.getID()).findFirst().orElseThrow();
+                                    SubmitQuestionRequest questionRequest = submitQuizRequest.getQuestions().stream().filter(q -> q.getId() == closedChoicesQuestion.getID()).findFirst().orElseThrow();
                                     return QuestionAnswer.builder()
-                                            .question(question)
-                                            .correct(Answer.valueOf(questionRequest.getAnswer().toUpperCase()) == question.getCorrectAnswer())
+                                            .closedChoicesQuestion(closedChoicesQuestion)
+                                            .correct(Answer.valueOf(questionRequest.getAnswer().toUpperCase()) == closedChoicesQuestion.getCorrectAnswer())
                                             .answer(Answer.valueOf(questionRequest.getAnswer().toUpperCase()))
                                             .build();
                                 }
@@ -82,9 +84,9 @@ public class QuizService {
                         ).toList()).user(userService.getCurrentUser())
 
                 .score(
-                        (int) quiz.getQuestions().stream().filter(question ->
+                        (int) quiz.getClosedChoicesQuestions().stream().filter(closedChoicesQuestion ->
                                 submitQuizRequest.getQuestions().stream()
-                                        .anyMatch(q -> Answer.valueOf(q.getAnswer().toUpperCase()) == question.getCorrectAnswer() && q.getId() == question.getID())
+                                        .anyMatch(q -> Answer.valueOf(q.getAnswer().toUpperCase()) == closedChoicesQuestion.getCorrectAnswer() && q.getId() == closedChoicesQuestion.getID())
 
 
                         ).count())
@@ -111,14 +113,14 @@ public class QuizService {
                 .id(quiz.getID())
                 .coursename(quiz.getQuizName())
                 .questions(
-                        quiz.getQuestions().stream().map(question ->
+                        quiz.getClosedChoicesQuestions().stream().map(closedChoicesQuestion ->
                                 QuestionEditModel.builder()
-                                        .id(question.getID())
-                                        .question(question.getQuestion())
-                                        .a(question.getA())
-                                        .b(question.getB())
-                                        .c(question.getC())
-                                        .correctAnswer(question.getCorrectAnswer().toString())
+                                        .id(closedChoicesQuestion.getID())
+                                        .question(closedChoicesQuestion.getQuestion())
+                                        .a(closedChoicesQuestion.getA())
+                                        .b(closedChoicesQuestion.getB())
+                                        .c(closedChoicesQuestion.getC())
+                                        .correctAnswer(closedChoicesQuestion.getCorrectAnswer().toString())
                                         .build()
 
                         ).toList()
@@ -135,11 +137,11 @@ public class QuizService {
                 .questions(
                         quizResult.getQuestions().stream().map(questionAnswer ->
                                 QuestionResult.builder()
-                                        .id(questionAnswer.getQuestion().getID())
-                                        .question(questionAnswer.getQuestion().getQuestion())
+                                        .id(questionAnswer.getClosedChoicesQuestion().getID())
+                                        .question(questionAnswer.getClosedChoicesQuestion().getQuestion())
                                         .answer(questionAnswer.getAnswer().name())
                                         .correct(questionAnswer.isCorrect())
-                                        .correctAnswer(questionAnswer.getQuestion().getCorrectAnswer().name())
+                                        .correctAnswer(questionAnswer.getClosedChoicesQuestion().getCorrectAnswer().name())
                                         .build()
 
                                 ).toList()
@@ -165,10 +167,10 @@ public class QuizService {
     public void submitQuiz(CourseSubmitRequest submitQuizRequest) {
         Quiz quiz = Quiz.builder()
                 .quizName(submitQuizRequest.getCoursename())
-                .questions(
+                .closedChoicesQuestions(
                         submitQuizRequest.getQuestions().stream().map(
                                 submitQuestionRequest ->
-                                    Question.builder()
+                                    ClosedChoicesQuestion.builder()
                                             .question(submitQuestionRequest.getQuestion())
                                             .a(submitQuestionRequest.getA())
                                             .b(submitQuestionRequest.getB())
@@ -179,7 +181,7 @@ public class QuizService {
 
                 )
                 .build();
-        quiz.getQuestions().forEach(question -> question.setQuiz(quiz));
+        quiz.getClosedChoicesQuestions().forEach(closedChoicesQuestion -> closedChoicesQuestion.setQuiz(quiz));
         quizRepository.save(quiz);
     }
 
@@ -188,12 +190,12 @@ public class QuizService {
         Quiz quiz = quizRepository.findById(submitQuizRequest.getId()).orElseThrow();
                 quiz.setQuizName(submitQuizRequest.getCoursename());
 
-                quiz.getQuestions().clear();
+                quiz.getClosedChoicesQuestions().clear();
 
-                quiz.getQuestions().addAll(
+                quiz.getClosedChoicesQuestions().addAll(
                         submitQuizRequest.getQuestions().stream().map(
                                 submitQuestionRequest ->
-                                        Question.builder()
+                                        ClosedChoicesQuestion.builder()
                                                 .question(submitQuestionRequest.getQuestion())
                                                 .a(submitQuestionRequest.getA())
                                                 .b(submitQuestionRequest.getB())

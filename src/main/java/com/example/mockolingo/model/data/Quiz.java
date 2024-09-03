@@ -1,5 +1,7 @@
 package com.example.mockolingo.model.data;
 
+import com.example.mockolingo.model.data.question.ClosedChoicesQuestion;
+import com.example.mockolingo.model.data.question.Question;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +24,7 @@ public class Quiz {
     @Column(name = "quiz_name")
     private String quizName;
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Question> questions;
+    private List<Question<?>> closedChoicesQuestions;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<QuizResult> quizResult;

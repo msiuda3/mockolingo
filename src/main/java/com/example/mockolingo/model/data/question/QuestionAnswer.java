@@ -1,5 +1,7 @@
-package com.example.mockolingo.model.data;
+package com.example.mockolingo.model.data.question;
 
+import com.example.mockolingo.model.data.Answer;
+import com.example.mockolingo.model.data.QuizResult;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,16 +14,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 @Table(name = "_question_answer")
-public class QuestionAnswer {
+public abstract class QuestionAnswer<T extends Question> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
     @ManyToOne
     @JoinColumn(name = "question_id")
-    private Question question;
-    @Enumerated(EnumType.STRING)
-    private Answer answer;
-    private boolean correct;
+    private T closedChoicesQuestion;
     @ManyToOne
     @JoinColumn(name = "quiz_result_id")
     private QuizResult quizResult;

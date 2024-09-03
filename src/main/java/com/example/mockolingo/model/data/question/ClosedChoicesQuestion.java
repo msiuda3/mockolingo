@@ -1,6 +1,7 @@
-package com.example.mockolingo.model.data;
+package com.example.mockolingo.model.data.question;
 
 
+import com.example.mockolingo.model.data.Answer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,20 +16,10 @@ import java.util.List;
 @Entity
 @Builder
 @Table(name = "_question")
-public class Question {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
-    private String question;
+public class ClosedChoicesQuestion extends Question<ClosedChoicesQuestionAnswer> {
     private String a;
     private String b;
     private String c;
     @Enumerated(EnumType.STRING)
     private Answer correctAnswer;
-    @ManyToOne
-    @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
-
-    @OneToMany(mappedBy = "question")
-    private List<QuestionAnswer> questionAnswers;
 }
