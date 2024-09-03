@@ -21,7 +21,7 @@ public class CoursesController {
     private final QuizService quizService;
 
 
-    @GetMapping("/api/test")
+    @GetMapping("/test")
     String getTest(){ // for testing api deployment
         return "test";
     }

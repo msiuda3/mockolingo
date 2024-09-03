@@ -18,7 +18,7 @@ public abstract class QuestionAnswer<T extends Question> {
     private int ID;
     @ManyToOne
     @JoinColumn(name = "question_id")
-    private T closedChoicesQuestion;
+    private T question;
     @ManyToOne
     @JoinColumn(name = "quiz_result_id")
     private QuizResult quizResult;
