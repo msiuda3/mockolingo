@@ -49,7 +49,7 @@ public class QuizService {
                 .id(quiz.getID())
                 .coursename(quiz.getQuizName())
                 .questions(
-                        quiz.getClosedChoicesQuestions().stream().map(closedChoicesQuestion ->
+                        quiz.getQuestions().stream().map(closedChoicesQuestion ->
                                 QuestionModel.builder()
                                         .id(closedChoicesQuestion.getID())
                                         .question(closedChoicesQuestion.getQuestion())
@@ -115,7 +115,7 @@ public class QuizService {
                 .id(quiz.getID())
                 .coursename(quiz.getQuizName())
                 .questions(
-                        quiz.getClosedChoicesQuestions().stream().map(closedChoicesQuestion ->
+                        quiz.getQuestions().stream().map(closedChoicesQuestion ->
                                 QuestionEditModel.builder()
                                         .id(closedChoicesQuestion.getID())
                                         .question(closedChoicesQuestion.getQuestion())
@@ -194,9 +194,9 @@ public class QuizService {
         Quiz quiz = quizRepository.findById(submitQuizRequest.getId()).orElseThrow();
                 quiz.setQuizName(submitQuizRequest.getCoursename());
 
-                quiz.getClosedChoicesQuestions().clear();
+                quiz.getQuestions().clear();
 
-                quiz.getClosedChoicesQuestions().addAll(
+                quiz.getQuestions().addAll(
                         submitQuizRequest.getQuestions().stream().map(
                                 submitQuestionRequest ->
                                         ClosedChoicesQuestion.builder()

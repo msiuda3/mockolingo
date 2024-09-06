@@ -1,16 +1,24 @@
 package com.example.mockolingo.controllers;
 
+import com.example.mockolingo.model.data.Answer;
+import com.example.mockolingo.model.data.Quiz;
+import com.example.mockolingo.model.data.question.ClosedChoicesQuestion;
+import com.example.mockolingo.model.data.question.OpenQuestion;
+import com.example.mockolingo.model.data.question.Question;
 import com.example.mockolingo.model.request.response.CourseDetailsEditResponse;
 import com.example.mockolingo.model.request.response.CourseDetailsResponse;
 import com.example.mockolingo.model.request.response.CourseResultResponse;
 import com.example.mockolingo.model.request.CourseSubmitRequest;
 import com.example.mockolingo.model.request.model.QuizModel;
+import com.example.mockolingo.repository.QuizRepository;
 import com.example.mockolingo.service.QuizService;
 import com.example.mockolingo.model.request.SubmitQuizRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -20,9 +28,18 @@ public class CoursesController {
 
     private final QuizService quizService;
 
+    private final QuizRepository quizRepository;
+
 
     @GetMapping("/test")
     String getTest(){ // for testing api deployment
+       /* ClosedChoicesQuestion question = new ClosedChoicesQuestion("a", "b", "c", Answer.C);
+        question.setQuestion("test");*/
+        OpenQuestion question = new OpenQuestion("Test answer");
+        question.setQuestion("Open Question test");
+        Quiz quiz = new Quiz(3, "Test3", Collections.singletonList(question), new ArrayList<>());
+        question.setQuiz(quiz);
+        quizRepository.save(quiz);
         return "test";
     }
 

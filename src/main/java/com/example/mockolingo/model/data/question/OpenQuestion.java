@@ -13,8 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class OpenQuestion extends Question {
+public class OpenQuestion extends Question<OpenQuestionAnswer> {
     private String correctAnswer;
-    @OneToMany(mappedBy = "question")
-    private List<QuestionAnswer> questionAnswers;
 }
