@@ -49,13 +49,11 @@ public class QuizService {
                 .id(quiz.getID())
                 .coursename(quiz.getQuizName())
                 .questions(
-                        quiz.getQuestions().stream().map(closedChoicesQuestion ->
+                        quiz.getQuestions().stream().map(question ->
                                 QuestionModel.builder()
-                                        .id(closedChoicesQuestion.getID())
-                                        .question(closedChoicesQuestion.getQuestion())
-                  //                      .a(closedChoicesQuestion.getA())
-                    //                    .b(closedChoicesQuestion.getB())
-                      //                  .c(closedChoicesQuestion.getC())
+                                        .id(question.getID())
+                                        .question(question.getQuestion())
+                                        .details(question.toJsonRepresantion())
                                         .build()
 
                         ).toList()
@@ -167,10 +165,19 @@ public class QuizService {
     }
 
     //TODO rewrite this
-   /* @Transactional
+    @Transactional
     public void submitQuiz(CourseSubmitRequest submitQuizRequest) {
         Quiz quiz = Quiz.builder()
                 .quizName(submitQuizRequest.getCoursename())
+                .questions(
+                        submitQuizRequest.getQuestions().stream().map(
+                                submitQuizRequest ->
+                                {
+                                    Question.builder().question(submitQuestionRequest.getQuestion())
+                                }
+                        )
+
+                )
                 .closedChoicesQuestions(
                         submitQuizRequest.getQuestions().stream().map(
                                 submitQuestionRequest ->
@@ -187,7 +194,7 @@ public class QuizService {
                 .build();
         quiz.getClosedChoicesQuestions().forEach(closedChoicesQuestion -> closedChoicesQuestion.setQuiz(quiz));
         quizRepository.save(quiz);
-    }*/
+    }
 
     @Transactional
     public void editQuiz(CourseSubmitRequest submitQuizRequest) {

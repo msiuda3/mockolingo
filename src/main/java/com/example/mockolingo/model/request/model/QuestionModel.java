@@ -13,8 +13,5 @@ import lombok.NoArgsConstructor;
 public class QuestionModel {
     private int id;
     private String question;
-    private String a;
-    private String b;
-    private String c;
-
+    private String details;
 }

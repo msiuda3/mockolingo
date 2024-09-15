@@ -21,4 +21,14 @@ public class ClosedChoicesQuestion extends Question<ClosedChoicesQuestionAnswer>
     private String c;
     @Enumerated(EnumType.STRING)
     private Answer correctAnswer;
+
+    @Override
+    public String toJsonRepresantion() {
+        return "{\"test2\": \"value2\"]"; //TODO
+    }
+
+    @Override
+    public void fromDetails(String details) {
+        //TODO
+    }
 }

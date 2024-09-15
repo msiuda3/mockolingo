@@ -15,4 +15,14 @@ import java.util.List;
 @Entity
 public class OpenQuestion extends Question<OpenQuestionAnswer> {
     private String correctAnswer;
+
+    @Override
+    public String toJsonRepresantion() {
+        return "{\"test\": \"value\"]"; //TODO
+    }
+
+    @Override
+    public void fromDetails(String details) {
+        //TODO
+    }
 }

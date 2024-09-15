@@ -25,4 +25,7 @@ public abstract class Question<T extends QuestionAnswer> {
     private Quiz quiz;
     @OneToMany(mappedBy = "question")
     private List<T> questionAnswers;
+
+    public abstract String toJsonRepresantion();
+    public abstract void fromDetails(String details);
 }
