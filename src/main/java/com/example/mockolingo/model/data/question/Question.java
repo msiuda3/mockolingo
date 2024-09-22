@@ -27,5 +27,7 @@ public abstract class Question<T extends QuestionAnswer> {
     private List<T> questionAnswers;
 
     public abstract String toJsonRepresantion();
-    public abstract void fromDetails(String details);
+    public abstract String toJsonRepresationEdit();
+
+    public abstract void processDetails(String jsonDetails);
 }
