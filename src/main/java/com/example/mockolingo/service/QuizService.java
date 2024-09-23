@@ -83,7 +83,8 @@ public class QuizService {
                 .score( //TODO this next, counting score
                         (int) quiz.getQuestions().stream().filter(closedChoicesQuestion ->
                                 submitQuizRequest.getQuestions().stream()
-                                        .filter(q -> Answer.valueOf(q.getAnswer().toUpperCase()) == closedChoicesQuestion.getCorrectAnswer() && q.getId() == closedChoicesQuestion.getID())
+                                        .filter(q -> q.getId() == closedChoicesQuestion.getID())
+                                        .mapToInt(i -> closedChoicesQuestion.getScore(i))
 
 
                         ).count())
