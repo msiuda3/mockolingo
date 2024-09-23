@@ -14,7 +14,5 @@ public class QuestionResult {
     private int id;
     private String question;
     private boolean correct;
-    private String answer;
-    private String correctAnswer;
-
+    private String details;
 }

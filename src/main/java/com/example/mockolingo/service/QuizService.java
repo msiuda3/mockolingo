@@ -71,23 +71,19 @@ public class QuizService {
                 .user(userService.getCurrentUser())
                 .questions(
 
-                        quiz.getClosedChoicesQuestions().stream().map(closedChoicesQuestion ->
+                        quiz.getQuestions().stream().map(question ->
                                 {
-                                    SubmitQuestionRequest questionRequest = submitQuizRequest.getQuestions().stream().filter(q -> q.getId() == closedChoicesQuestion.getID()).findFirst().orElseThrow();
-                                    return QuestionAnswer.builder()
-                                            .closedChoicesQuestion(closedChoicesQuestion)
-                                            .correct(Answer.valueOf(questionRequest.getAnswer().toUpperCase()) == closedChoicesQuestion.getCorrectAnswer())
-                                            .answer(Answer.valueOf(questionRequest.getAnswer().toUpperCase()))
-                                            .build();
+                                    SubmitQuestionRequest submitQuestionRequest = submitQuizRequest.getQuestions().stream().filter(q -> q.getId() == question.getID()).findFirst().orElseThrow();
+                                    return questionFactory.createQuestionAnswer(submitQuestionRequest);
                                 }
 
 
                         ).toList()).user(userService.getCurrentUser())
 
-                .score(
-                        (int) quiz.getClosedChoicesQuestions().stream().filter(closedChoicesQuestion ->
+                .score( //TODO this next, counting score
+                        (int) quiz.getQuestions().stream().filter(closedChoicesQuestion ->
                                 submitQuizRequest.getQuestions().stream()
-                                        .anyMatch(q -> Answer.valueOf(q.getAnswer().toUpperCase()) == closedChoicesQuestion.getCorrectAnswer() && q.getId() == closedChoicesQuestion.getID())
+                                        .filter(q -> Answer.valueOf(q.getAnswer().toUpperCase()) == closedChoicesQuestion.getCorrectAnswer() && q.getId() == closedChoicesQuestion.getID())
 
 
                         ).count())

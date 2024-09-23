@@ -1,6 +1,7 @@
 package com.example.mockolingo.model.data.question;
 
 import com.example.mockolingo.model.data.Quiz;
+import com.example.mockolingo.model.request.SubmitQuestionRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,4 +31,5 @@ public abstract class Question<T extends QuestionAnswer> {
     public abstract String toJsonRepresationEdit();
 
     public abstract void processDetails(String jsonDetails);
+    public abstract int getScore(SubmitQuestionRequest submitQuestionRequest);
 }

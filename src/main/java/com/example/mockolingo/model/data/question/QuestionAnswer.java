@@ -22,4 +22,5 @@ public abstract class QuestionAnswer<T extends Question> {
     @ManyToOne
     @JoinColumn(name = "quiz_result_id")
     private QuizResult quizResult;
+    public abstract void processDetails(String details);
 }

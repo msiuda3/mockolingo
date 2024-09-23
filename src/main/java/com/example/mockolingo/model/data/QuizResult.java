@@ -27,6 +27,6 @@ public class QuizResult {
     @JoinColumn(name = "user_id")
     private User user;
     @OneToMany(mappedBy = "quizResult", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-   private List<QuestionAnswer<?>> questions;
+   private List<QuestionAnswer> questions;
    private int score;
 }

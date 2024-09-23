@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SubmitQuestionRequest {
     int id;
-    String answer;
+    String details;
 }

@@ -13,5 +13,9 @@ public class QuestionFactory {
         return question;
     }
 
-    public QuestionFactory
+    public QuestionAnswer createQuestionAnswer(SubmitQuestionRequest submitQuestionRequest){
+        QuestionAnswer questionAnswer; // TODO
+        questionAnswer.processDetails(submitQuestionRequest.getDetails());
+        return questionAnswer;
+    }
 }
